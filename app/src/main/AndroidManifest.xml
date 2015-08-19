@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GraphExample"
+            android:label="@string/title_activity_graph_example" >
+        </activity>
+        <activity
+            android:name=".ButtonExample"
+            android:label="@string/title_activity_button_example" >
+        </activity>
+        <activity
+            android:name=".GraphExample2"
+            android:label="@string/title_activity_graph_example2" >
+        </activity>
     </application>
 
 </manifest>

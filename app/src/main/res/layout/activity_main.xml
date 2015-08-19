@@ -5,7 +5,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Graph Example"
+        android:onClick="showGraphExample"
+        android:id="@+id/button" />
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Button Example"
+        android:onClick="showButtonExample"
+        android:layout_below="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/button2" />
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Slider Example"
+        android:onClick="showSliderExample"
+        android:layout_below="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

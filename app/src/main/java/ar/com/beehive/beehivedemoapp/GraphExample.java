@@ -26,10 +26,9 @@ public class GraphExample extends ActionBarActivity {
         LineChart chart = (LineChart) findViewById(R.id.chart);
         chart.setDrawBorders(Boolean.FALSE);
         chart.setAutoScaleMinMaxEnabled(Boolean.TRUE);
-
-        YAxis formatYAxis = chart.getAxisLeft();
-        formatYAxis.setDrawAxisLine(Boolean.FALSE);
-
+        chart.setDrawGridBackground(Boolean.FALSE);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getXAxis().setDrawGridLines(false);
 
         //Create a limit line
         YAxis hotLimit = chart.getAxisLeft();
@@ -38,7 +37,7 @@ public class GraphExample extends ActionBarActivity {
         lh.setLineWidth(1f);
         lh.setTextColor(Color.BLACK);
         lh.setTextSize(8f);
-        hotLimit.addLimitLine(lh);
+        //hotLimit.addLimitLine(lh);
 
         //Create a limit line
         YAxis coldLimit = chart.getAxisLeft();
@@ -47,7 +46,7 @@ public class GraphExample extends ActionBarActivity {
         lc.setLineWidth(1f);
         lc.setTextColor(Color.BLACK);
         lc.setTextSize(8f);
-        coldLimit.addLimitLine(lc);
+        //coldLimit.addLimitLine(lc);
 
         //Create the values
         ArrayList<Entry> valsComp1 = new ArrayList<Entry>();
@@ -66,6 +65,8 @@ public class GraphExample extends ActionBarActivity {
         setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
         setComp1.setLineWidth(3f);
         setComp1.setColor(Color.BLUE);
+        setComp1.setCircleColor(Color.BLUE);
+        setComp1.setCircleSize(6f);
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(setComp1);
