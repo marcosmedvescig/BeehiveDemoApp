@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">BeehiveDemoApp</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_graph_example">GraphExample</string>
     <string name="title_activity_button_example">ButtonExample</string>
     <string name="title_activity_graph_example2">GraphExample2</string>
+    <string name="title_activity_network">NetworkActivity</string>
 </resources>

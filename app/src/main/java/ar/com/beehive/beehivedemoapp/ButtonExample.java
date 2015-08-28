@@ -1,16 +1,40 @@
 package ar.com.beehive.beehivedemoapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ToggleButton;
 
 public class ButtonExample extends ActionBarActivity {
+
+    private static final String DEBUG_TAG = "Beehive-ButtonExample";
+    private ToggleButton toggle;
+    Handler handler;
+
+    {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String value = (String) msg.obj;
+                Log.d(DEBUG_TAG, "Result: " + value);
+
+            }
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button_example);
+        toggle = (ToggleButton) findViewById(R.id.toggleButton);
+        getStatus();
     }
 
     @Override
@@ -34,4 +58,16 @@ public class ButtonExample extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void getStatus () {
+
+        String statusURL = "http://192.168.40.26/Codiad-v.2.4.1/workspace/beehive/Android/beehiveCloud.php?action=Status";
+
+        NetworkActivity networkActivity = new NetworkActivity();
+        networkActivity.setHandler(handler);
+        networkActivity.contactCloud(statusURL);
+
+    }
+
+
 }

@@ -28,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -54,6 +52,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void showGraphExample(View view) {
         Intent intent = new Intent(this, GraphExample.class);
+        startActivity(intent);
+    }
+
+    public void showButtonExample(View view) {
+        Intent intent = new Intent(this, ButtonExample.class);
         startActivity(intent);
     }
 }
