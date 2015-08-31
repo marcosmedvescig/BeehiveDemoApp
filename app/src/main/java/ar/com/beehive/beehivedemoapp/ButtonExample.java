@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ToggleButton;
 
 public class ButtonExample extends ActionBarActivity {
@@ -17,6 +18,8 @@ public class ButtonExample extends ActionBarActivity {
     private static final String DEBUG_TAG = "Beehive-ButtonExample";
     private ToggleButton toggle;
     Handler handler;
+    NetworkActivity networkActivity = new NetworkActivity();
+
 
     {
         handler = new Handler() {
@@ -24,6 +27,9 @@ public class ButtonExample extends ActionBarActivity {
             public void handleMessage(Message msg) {
                 String value = (String) msg.obj;
                 Log.d(DEBUG_TAG, "Result: " + value);
+
+                if(value == "Light Off") toggle.setChecked(false);
+                if(value == "Light On") toggle.setChecked(true);
 
             }
         };
@@ -34,6 +40,8 @@ public class ButtonExample extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button_example);
         toggle = (ToggleButton) findViewById(R.id.toggleButton);
+        networkActivity.setHandler(handler);
+        networkActivity.checkNetworkStatus(this);
         getStatus();
     }
 
@@ -63,9 +71,23 @@ public class ButtonExample extends ActionBarActivity {
 
         String statusURL = "http://192.168.40.26/Codiad-v.2.4.1/workspace/beehive/Android/beehiveCloud.php?action=Status";
 
-        NetworkActivity networkActivity = new NetworkActivity();
-        networkActivity.setHandler(handler);
+        //NetworkActivity networkActivity = new NetworkActivity();
+        //networkActivity.setHandler(handler);
+        //networkActivity.checkNetworkStatus(this);
         networkActivity.contactCloud(statusURL);
+
+    }
+
+    // When user clicks button, calls AsyncTask.
+    // Before attempting to fetch the URL, makes sure that there is a network connection.
+
+    public void toggleLight (View view) {
+
+        String turnOnUrl = "http://192.168.40.26/Codiad-v.2.4.1/workspace/beehive/Android/beehiveCloud.php?action=On";
+        String turnOffUrl = "http://192.168.40.26/Codiad-v.2.4.1/workspace/beehive/Android/beehiveCloud.php?action=Off";
+
+        if(toggle.isChecked()) networkActivity.contactCloud(turnOnUrl);
+        else networkActivity.contactCloud(turnOffUrl);
 
     }
 

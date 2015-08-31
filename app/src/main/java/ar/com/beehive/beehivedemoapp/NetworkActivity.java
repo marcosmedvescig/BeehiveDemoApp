@@ -1,36 +1,38 @@
 package ar.com.beehive.beehivedemoapp;
 
-import android.app.Activity;
+
 import android.content.Context;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class NetworkActivity extends ActionBarActivity {
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+
+import android.text.Html;
+import android.util.Log;
+
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+
+
+public class NetworkActivity {
 
     private static final String DEBUG_TAG = "Beehive-NetworkActivity";
+    private Boolean networkConnected;
     Handler handler = null;
-
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //setContentView(R.layout.activity_network);
     }
 
@@ -56,20 +58,35 @@ public class NetworkActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    */
     // When user clicks button, calls AsyncTask.
     // Before attempting to fetch the URL, makes sure that there is a network connection.
 
-    public void contactCloud (String url) {
+    public void checkNetworkStatus (Context context) {
         // Gets the URL from the UI's text field.
         //String stringUrl = urlText.getText().toString();
         ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+            networkConnected = Boolean.TRUE;
+            Log.d(DEBUG_TAG, "Network is UP");
+
+        } else {
+
+            networkConnected = Boolean.FALSE;
+            Log.d(DEBUG_TAG, "Network is DOWN");
+
+        }
+    }
+
+    public void contactCloud (String url){
+
+        //this.checkNetworkStatus();
+        if(networkConnected){
             new DownloadWebpageTask().execute(url);
             Log.d(DEBUG_TAG, "URL:" + url);
         } else {
-            // textView.setText("No network connection available.");
             Log.d(DEBUG_TAG, "No network connection available.");
         }
     }
@@ -89,6 +106,20 @@ public class NetworkActivity extends ActionBarActivity {
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
                 return "Unable to retrieve web page. URL may be invalid.";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Log.d(DEBUG_TAG, "Response:" + result);
+            if (handler != null) {
+                Message message = new Message();
+                message.obj = Html.fromHtml(result).toString();;
+                handler.sendMessage(message);
+
+
+
             }
         }
 
@@ -140,18 +171,10 @@ public class NetworkActivity extends ActionBarActivity {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+
     }
 
-    protected void onPostExecute(String result) {
 
-        Log.d(DEBUG_TAG, "Response:" + result);
-        if (handler != null) {
-            Message message = new Message();
-            message.obj = result;
-            handler.sendMessage(message);
-
-        }
-    }
 
 }
 
