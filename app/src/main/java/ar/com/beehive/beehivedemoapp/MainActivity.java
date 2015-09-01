@@ -1,21 +1,14 @@
 package ar.com.beehive.beehivedemoapp;
 
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 
-import java.util.ArrayList;
 
 
 
@@ -57,6 +50,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void showButtonExample(View view) {
         Intent intent = new Intent(this, ButtonExample.class);
+        startActivity(intent);
+    }
+
+    public void showSliderExample(View view) {
+        Intent intent = new Intent(this, SliderExample.class);
         startActivity(intent);
     }
 }

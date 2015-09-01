@@ -70,10 +70,6 @@ public class ButtonExample extends ActionBarActivity {
     private void getStatus () {
 
         String statusURL = "http://192.168.40.26/Codiad-v.2.4.1/workspace/beehive/Android/beehiveCloud.php?action=Status";
-
-        //NetworkActivity networkActivity = new NetworkActivity();
-        //networkActivity.setHandler(handler);
-        //networkActivity.checkNetworkStatus(this);
         networkActivity.contactCloud(statusURL);
 
     }

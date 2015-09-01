@@ -6,4 +6,5 @@
     <string name="title_activity_button_example">ButtonExample</string>
     <string name="title_activity_graph_example2">GraphExample2</string>
     <string name="title_activity_network">NetworkActivity</string>
+    <string name="title_activity_slider_example">SliderExample</string>
 </resources>
